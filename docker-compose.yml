@@ -1,5 +1,14 @@
 version: "2"
 services:
+  mongo:
+    image: mongo
+    container_name: mongo
+    volumes:
+      - ./api/services/volumes/data:/data/db
+    ports:
+      - "27017:27017"
+    restart: always
+
   api:
     container_name: node-container
     restart: always
@@ -14,13 +23,4 @@ services:
     links:
       - mongo
     depends_on:
-      - mongo
-
-  mongo:
-    image: mongo
-    container_name: mongo
-    volumes:
-      - ./api/services/volumes/data:/data/db
-    ports:
-      - "27017:27017"
-    restart: always
+      - mongo  

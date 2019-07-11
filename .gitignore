@@ -1,2 +1,4 @@
 .vscode*
 api/yarn.lock
+api/node_modules*
+api/services/volumes*
