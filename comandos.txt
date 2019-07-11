@@ -1,0 +1,5 @@
+criando container mongo 
+ $ docker run -d -v /$pwd/api/services/:/data/db -p 27017:27017 --rm --name mongo-container mongo-image
+
+criando o container node e linkando ao mongo
+ $ docker run -d -v /$pwd/api/:/home/node/app -p 3000:3000 --link mongo-container --rm --name node-container node-image

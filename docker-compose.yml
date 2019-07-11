@@ -1,0 +1,26 @@
+version: "2"
+services:
+  api:
+    container_name: node-container
+    restart: always
+    build:
+      "./api"
+    volumes:
+      - ./api:/home/node/app
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/ecommerce-api
+    ports:
+      - "3000:3000"
+    links:
+      - mongo
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo
+    container_name: mongo
+    volumes:
+      - ./api/services/volumes/data:/data/db
+    ports:
+      - "27017:27017"
+    restart: always
