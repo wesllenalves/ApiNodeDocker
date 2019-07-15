@@ -1,5 +1,9 @@
 criando container mongo 
  $ docker run -d -v /$pwd/api/services/:/data/db -p 27017:27017 --rm --name mongo-container mongo-image
 
+criando cotainer mysql
+docker run -d -v $(pwd)/api/services/volumes/data:/var/lib/mysql -p 3306:3306 --rm -e MYSQL_ROOT_PASSWORD=Wesllen$1234 MYSQL_DATABASE=ecommerce_api MYSQL_USER=root --name mysql-container mysql
+ $ docker run --name container-teste-mysql -e MYSQL_ROOT_PASSWORD=senha-mysql -d mysql/mysql-server:latest
+
 criando o container node e linkando ao mongo
  $ docker run -d -v /$pwd/api/:/home/node/app -p 3000:3000 --link mongo-container --rm --name node-container node-image

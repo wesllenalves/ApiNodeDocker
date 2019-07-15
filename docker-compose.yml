@@ -1,14 +1,19 @@
 version: "2"
 services:
-  mongo:
-    image: mongo
-    container_name: mongo
-    volumes:
-      - ./api/services/volumes/data:/data/db
-    ports:
-      - "27017:27017"
+  mysqldb:
+    image: mysql
+    container_name: mysqldb
+    command: --default-authentication-plugin=mysql_native_password
     restart: always
-
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: Root!1234
+      MYSQL_DATABASE: ecommerce_api
+      MYSQL_USER: root
+    volumes:
+      - ./api/services/volumes/data:/var/lib/mysql
+  
   api:
     container_name: node-container
     restart: always
@@ -17,10 +22,10 @@ services:
     volumes:
       - ./api:/home/node/app
     environment:
-      - MONGO_URI=mongodb://mongo:27017/ecommerce-api
+      - MYSQL_URI=mysqldb
     ports:
-      - "3000:3000"
+      - "2000:2000"
     links:
-      - mongo
+      - "mysqldb:database" 
     depends_on:
-      - mongo  
+      - mysqldb  
